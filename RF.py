@@ -56,8 +56,3 @@ class Forest:
             votes[:,i] = self.trees[i].predict(X)
         
         return sc.stats.mode(votes, axis=1)
-
-generateSubmissionFile(myname, randomForest)
-
-
-main()
