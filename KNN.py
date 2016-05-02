@@ -16,7 +16,22 @@ def whiten(D):
     return np.diag(V).dot(E.T)
 
 # Dynamic Time Warping (for time series KNN)
+def DTW(self, a, b):
 
+    metric = lambda x,y : np.abs(np.subtract(x,y))
+        
+    m = a.shape[0]
+    n = b.shape[0]
+    D = np.iinfo(np.int32).max * np.ones((m,n))
+        
+    D[:,0] = np.cumsum(metric(b[0],a))
+    D[0,:] = np.cumsum(metric(a[0],b))
+
+    for i in range(1,m):
+        for j in range(max(1,i-self.w),min(n,i+self.w)):
+            D[i,j] = min(D[i-1,j-1],D[i,j-1],D[i-1,j]) + metric(a[i],b[j])
+
+    return D[-1,-1]
 
 # k-Nearest Neighbors
 class KNN:
