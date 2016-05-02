@@ -1,5 +1,5 @@
-import sys
 import numpy as np
+import sys
 
 from sklearn.tree import DecisionTreeClassifier
 
